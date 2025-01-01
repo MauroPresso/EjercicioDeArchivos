@@ -1,0 +1,94 @@
+\doxysection{main.\+c File Reference}
+\hypertarget{main_8c}{}\label{main_8c}\index{main.c@{main.c}}
+
+
+Programa que lee datos de distintos tipos (int, float, double y struct \doxylink{struct_complex}{Complex}) desde un archivo binario.  
+
+
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_complex}{Complex}}
+\begin{DoxyCompactList}\small\item\em Estructura para representar números complejos. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{main_8c_ae66f6b31b5ad750f1fe042a706a4e3d4}{main}} ()
+\begin{DoxyCompactList}\small\item\em Función principal que lee un archivo binario y agrupa los datos por tipo. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Programa que lee datos de distintos tipos (int, float, double y struct \doxylink{struct_complex}{Complex}) desde un archivo binario. 
+
+Este programa lee un archivo binario con números de diferentes tipos y los agrupa en vectores. Además, muestra en consola la cantidad de números de cada tipo y los imprime.
+
+El archivo binario debe contener un prefijo que indica el tipo de los datos\+:
+\begin{DoxyItemize}
+\item \textquotesingle{}i\textquotesingle{} para int
+\item \textquotesingle{}f\textquotesingle{} para float
+\item \textquotesingle{}d\textquotesingle{} para double
+\item \textquotesingle{}z\textquotesingle{} para struct \doxylink{struct_complex}{Complex}
+\end{DoxyItemize}
+
+Se utilizan vectores dinámicos para almacenar los números de cada tipo. 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{main_8c_ae66f6b31b5ad750f1fe042a706a4e3d4}\label{main_8c_ae66f6b31b5ad750f1fe042a706a4e3d4} 
+\index{main.c@{main.c}!main@{main}}
+\index{main@{main}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Función principal que lee un archivo binario y agrupa los datos por tipo. 
+
+La función realiza lo siguiente\+:
+\begin{DoxyEnumerate}
+\item Abre un archivo binario para leer los datos.
+\item Cuenta la cantidad de cada tipo de dato en el archivo.
+\item Carga los datos en vectores dinámicos según su tipo.
+\item Imprime los datos y las cantidades de cada tipo en consola.
+\end{DoxyEnumerate}
+
+\begin{DoxyReturn}{Returns}
+0 si el programa se ejecuta correctamente, 1 en caso de error. 
+\end{DoxyReturn}
+Puntero al archivo binario a leer.
+
+Este puntero se utiliza para abrir el archivo {\ttfamily number\+\_\+mixed.\+dat} en modo lectura binaria.
+
+Contadores de cantidades por tipo de dato.
+
+Estas variables almacenan la cantidad de números de cada tipo en el archivo.
+
+Vectores dinámicos para almacenar los datos leídos.
+
+Estos vectores almacenan los datos por tipo (int, float, double, \doxylink{struct_complex}{Complex}).
+
+Última posición ocupada en cada vector.
+
+Estas variables se usan para hacer un seguimiento de la última posición ocupada en cada vector, asegurando que los datos se almacenen en el orden correcto.
+
+Variable que indica el tipo de dato que se está leyendo del archivo.
+
+Este carácter se lee desde el archivo y determina si el siguiente bloque de datos es de tipo \textquotesingle{}i\textquotesingle{}, \textquotesingle{}f\textquotesingle{}, \textquotesingle{}d\textquotesingle{} o \textquotesingle{}z\textquotesingle{}.
+
+Lee el archivo y cuenta la cantidad de elementos por tipo de dato.
+
+Este bucle lee el archivo binario y, dependiendo del tipo de dato (\textquotesingle{}i\textquotesingle{}, \textquotesingle{}f\textquotesingle{}, \textquotesingle{}d\textquotesingle{}, \textquotesingle{}z\textquotesingle{}), actualiza los contadores correspondientes y avanza a la siguiente sección del archivo.
+
+Lee el archivo y carga los datos en los vectores correspondientes.
+
+Este bucle lee el archivo binario nuevamente, pero ahora carga los datos en los vectores dinámicos correspondientes según el tipo de dato. La variable {\ttfamily tipo} determina el tipo de dato que se está leyendo y almacenando.
+
+Imprime los resultados de los vectores.
+
+Esta sección del código imprime los contenidos de los vectores dinámicos en consola, mostrando los valores de los números enteros, flotantes, doubles y complejos.
+
+Libera la memoria asignada dinámicamente.
+
+Esta sección libera la memoria asignada para los vectores dinámicos y asegura que no queden punteros residuales.
