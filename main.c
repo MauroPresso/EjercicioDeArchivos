@@ -1,6 +1,37 @@
+
+/**
+ * @file main.c
+ * @brief Programa que lee datos de distintos tipos (int, float, double y struct Complex) desde un archivo binario.
+ * 
+ * Este programa lee un archivo binario con números de diferentes tipos y los agrupa en vectores. 
+ * Además, muestra en consola la cantidad de números de cada tipo y los imprime.
+ * 
+ * El archivo binario debe contener un prefijo que indica el tipo de los datos:
+ * - 'i' para int
+ * - 'f' para float
+ * - 'd' para double
+ * - 'z' para struct Complex
+ * 
+ * Se utilizan vectores dinámicos para almacenar los números de cada tipo.
+ */
+
 #include<stdio.h>
 #include<stdlib.h>
 #include<stdint.h>
+
+
+/**
+ * @struct Complex
+ * @brief Estructura para representar números complejos.
+ * 
+ * Esta estructura almacena las partes real e imaginaria de un número complejo.
+ * 
+ * @var Complex::re
+ * Parte real del número complejo.
+ * 
+ * @var Complex::im
+ * Parte imaginaria del número complejo.
+ */
 
 struct Complex
 {
@@ -8,10 +39,30 @@ struct Complex
     double im;
 };
 
+
+/**
+ * @brief Función principal que lee un archivo binario y agrupa los datos por tipo.
+ * 
+ * La función realiza lo siguiente:
+ * 1. Abre un archivo binario para leer los datos.
+ * 2. Cuenta la cantidad de cada tipo de dato en el archivo.
+ * 3. Carga los datos en vectores dinámicos según su tipo.
+ * 4. Imprime los datos y las cantidades de cada tipo en consola.
+ * 
+ * @return 0 si el programa se ejecuta correctamente, 1 en caso de error.
+ */
+
 int main()
 {
-    FILE *pf;
-    pf = fopen("C:\\Users\\MAURO\\Documents\\EjercicioDeArchivos\\number_mixed.dat","rb");
+    
+	/**
+ 	* @brief Puntero al archivo binario a leer.
+ 	* 
+ 	* Este puntero se utiliza para abrir el archivo `number_mixed.dat` en modo lectura binaria.
+ 	*/
+	
+	FILE *pf;
+    pf = fopen("C:\\Users\\MAURO\\Documents\\FileExample\\number_mixed.dat","rb");
     if (pf == NULL)
     {
         printf("\nError 404: Not Found\n");
@@ -22,7 +73,11 @@ int main()
         printf("\nFile opening was OK. Continue with the procedure\n");
     }
     
-	// Cantidades.
+	/**
+ 	* @brief Contadores de cantidades por tipo de dato.
+ 	* 
+ 	* Estas variables almacenan la cantidad de números de cada tipo en el archivo.
+ 	*/
     int cant_intigers;
     int cant_float;
     int cant_double;
@@ -34,22 +89,42 @@ int main()
     int cant_TOTAL_double = 0;
     int cant_TOTAL_complex = 0;
 
-    // Creando vectores dinamicos para juntar los datos.
+    /**
+ 	* @brief Vectores dinámicos para almacenar los datos leídos.
+ 	* 
+ 	* Estos vectores almacenan los datos por tipo (int, float, double, Complex).
+ 	*/
     int *intigers_vector;
     float *float_vector;
     double *double_vector;
     struct Complex *complex_vector;
     
-	char tipo;
-	tipo = '\0';
-	
-	// Creo estas variables para guardar la ultima posicion cargada de cada vector.
+	/**
+	* @brief Última posición ocupada en cada vector.
+	* 
+	* Estas variables se usan para hacer un seguimiento de la última posición ocupada en cada vector, 
+ 	* asegurando que los datos se almacenen en el orden correcto.
+ 	*/
 	int ult_pos_i;
 	int ult_pos_f;
 	int ult_pos_d;
 	int ult_pos_z;
 
-	// Hago este bucle para saber cuanta cantidad hay de cada tipo de dato.
+	/**
+	* @brief Variable que indica el tipo de dato que se está leyendo del archivo.
+	* 
+	* Este carácter se lee desde el archivo y determina si el siguiente bloque de datos es de tipo 'i', 
+	* 'f', 'd' o 'z'.
+	*/
+	char tipo;
+	tipo = '\0';
+
+	/**
+ 	* @brief Lee el archivo y cuenta la cantidad de elementos por tipo de dato.
+ 	* 
+ 	* Este bucle lee el archivo binario y, dependiendo del tipo de dato ('i', 'f', 'd', 'z'), 
+ 	* actualiza los contadores correspondientes y avanza a la siguiente sección del archivo.
+ 	*/
 	while(fread(&tipo, sizeof(char), 1, pf) != 0) // Si yo le pido a la funcion fread() que lea 'tanto', se corre 'tanto'.
 	{
 		// Acá ya detectó el primer tipo
@@ -114,7 +189,13 @@ int main()
 	
 	rewind(pf); // Me lo pone al principio del archivo.
 	
-	// Hago este bucle para cargar los valores en cada vector.
+	/**
+	* @brief Lee el archivo y carga los datos en los vectores correspondientes.
+	* 
+	* Este bucle lee el archivo binario nuevamente, pero ahora carga los datos en los vectores dinámicos 
+	* correspondientes según el tipo de dato. La variable `tipo` determina el tipo de dato que se está 
+	* leyendo y almacenando.
+	*/
 	while(fread(&tipo, sizeof(char), 1, pf) != 0) // Si yo le pido a la funcion fread() que lea 'tanto', se corre 'tanto'.
 	{
 		// Aca ya detecto el tipo
@@ -162,7 +243,12 @@ int main()
     } 
 	
 	printf("\n");
-	// Imprimiendo los vectores.
+	/**
+ 	* @brief Imprime los resultados de los vectores.
+ 	* 
+ 	* Esta sección del código imprime los contenidos de los vectores dinámicos 
+ 	* en consola, mostrando los valores de los números enteros, flotantes, doubles y complejos.
+ 	*/
 	printf("\nVector de numeros enteros:\n");
 	for(int j = 0 ; j < cant_TOTAL_intigers ; j++)
 	{
@@ -193,7 +279,12 @@ int main()
 	
 	fclose(pf);
     
-	// Liberar memoria
+	/**
+ 	* @brief Libera la memoria asignada dinámicamente.
+ 	* 
+ 	* Esta sección libera la memoria asignada para los vectores dinámicos 
+ 	* y asegura que no queden punteros residuales.
+ 	*/
     free(intigers_vector);
     free(float_vector);
     free(double_vector);
