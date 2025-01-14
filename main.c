@@ -62,7 +62,7 @@ int main()
  	*/
 	
 	FILE *pf;
-    pf = fopen("C:\\Users\\MAURO\\Documents\\FileExample\\number_mixed.dat","rb");
+    pf = fopen("C:\\Users\\MAURO\\Documents\\NumberMixed\\number_mixed.dat","rb");
     if (pf == NULL)
     {
         printf("\nError 404: Not Found\n");
